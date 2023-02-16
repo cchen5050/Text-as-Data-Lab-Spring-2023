@@ -263,6 +263,7 @@ vocab_custom <- stylest_select_vocab(novels_excerpts$text,
 vocab_custom$cutoff_pct_best  # percentile with best prediction rate
 vocab_custom$miss_pct  # rate of incorrectly predicted speakers of held-out texts
 apply(vocab_custom$miss_pct, 2, mean)
+#second to last is lwoest error
 
 # (2) subset features
 vocab_subset <- stylest_terms(novels_excerpts$text, 
@@ -355,6 +356,8 @@ textstat_readability(corpus_y, "Flesch")
 
 corpus_p <- corpus_group(data_corpus_irishbudgets, groups = docvars(data_corpus_irishbudgets)$party)
 textstat_readability(corpus_p, "Flesch")
+
+# higher is easier
 
 # Dale-Chall measure (https://en.wikipedia.org/wiki/Dale–Chall_readability_formula)
 #######################################################################################
