@@ -169,8 +169,15 @@ select(filter(polling_data, Pollster == "Quinnipiac"), Number.of.Observations)  
 # A) Dollar sign operator
 polling_data$net_clinton_a <- polling_data$Clinton - polling_data$Trump
 
+<<<<<<< Updated upstream
 polling_data <- polling_data %>% 
   relocate(Clinton, Trump, net_clinton_a)
+=======
+# another hack: in class
+polling_data <- polling_data %>%
+    relocate(Clinton,Trump,net_clinton_a)
+View(polling_data)
+>>>>>>> Stashed changes
 
 # B) Matrix identifier
 polling_data[, "net_clinton_b"]  <- polling_data[, "Clinton"] - polling_data[, "Trump"]
@@ -215,10 +222,15 @@ polling_data <- polling_data %>%
 summary(polling_data)  # summary statistics where appropriate (non-string/character variables)
 
 # C) Single variable summary
+<<<<<<< Updated upstream
 mean(polling_data$net_clinton_a, na.rm=T)
+=======
+mean(polling_data$net_clinton_a, na.rm = T) # remove NAs
+>>>>>>> Stashed changes
 sd(polling_data$net_clinton_a)
 polling_data %>% 
   summarise(mean_net_clinton = mean(net_clinton_a))  # using dplyr
+table(polling_data$Population) # counts
 polling_data %>% 
   filter(Population == "Registered Voters") %>% 
   summarise(mean_net_clinton = mean(net_clinton_a))  # summary for a specific group
@@ -291,7 +303,7 @@ for(x in names(polling_data)){ # A loop that identifies and stores variables tha
 ########################################
 names(polling_data)
 names(polling_data) <- sapply(names(polling_data), function(i) {
-  i <- gsub("\\.", "_", i) # Replaces all instances of "." with an "_"
+  i <- gsub("\\.", "_", i) # Replaces all instances of "." with an "_" # needs escape to get period, not wildcard
   i <- gsub("__", "_", i) # Replaces all instances of "__" with "_"
 } )
 names(polling_data)

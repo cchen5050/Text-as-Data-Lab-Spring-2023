@@ -35,7 +35,7 @@ pacman::p_load(dplyr,
 #########################################
 
 # Use devtools to install some sample data
-#devtools::install_github("quanteda/quanteda.corpora")
+devtools::install_github("quanteda/quanteda.corpora")
 
 # Load it into our environment
 library(quanteda.corpora)
@@ -140,7 +140,11 @@ trump_2018_text <- as.character(trump_sotu)[2]
 # previous quanteda: texts(trump_sotu)[2]
 
 # similar to
+<<<<<<< Updated upstream
 trump_2018_text <- trump_sotu[2] # note this is still a corpus object
+=======
+trump_2018_text <- trump_sotu[2] # still a corpus object
+>>>>>>> Stashed changes
 
 # 1.3 Exploring corpus texts
 ####################################
@@ -149,7 +153,7 @@ trump_2018_text <- trump_sotu[2] # note this is still a corpus object
 # search for a word and allows us to view the contexts in which it occurs
 kwic_america <- kwic(tokens(trump_sotu), 
                      pattern = "america", 
-                     valuetype = "regex", 
+                     valuetype = "regex", # fixed is exact, regex includes american
                      window = 6)
 head(kwic_america)
 
@@ -188,7 +192,7 @@ head(unname(unlist(tokenized_speech)), 20)
 ## 2.2 Stemming 
 #########################
 ?tokens_wordstem
-stemmed_speech <- tokens_wordstem(tokenized_speech)  # language is an argument
+stemmed_speech <- tokens_wordstem(tokenized_speech)  # language is an argument # need to tokenize first
 head(unname(unlist(stemmed_speech)), 20)
 
 ## 2.3 Ngrams 
@@ -277,10 +281,12 @@ stopwords("english")
 
 trump_2018_dfm_2 <- tokens(trump_2018_text, remove_punct = TRUE) %>% 
   dfm() %>% 
-  dfm_remove(pattern = stopwords("english"))
+  dfm_remove(pattern = stopwords("english")) # remove stop words after
 
 topfeatures(trump_2018_dfm)
+trump_2018_dfm_2[1,"well"]
 topfeatures(trump_2018_dfm_2)
+trump_2018_dfm_2[1,"we'll"]
 
 # wordclouds
 
@@ -415,7 +421,7 @@ s_index <- grep(" s ", as.character(sotu))
 head(s_index)
 #see(as.character(sotu)[107], " s ")
 
-thank_index <- grep("^Thank", as.character(sotu))
+thank_index <- grep("^Thank", as.character(sotu)) #^ at beginning
 thank_index
 see(as.character(sotu)[215], "^Thank")
 
@@ -461,7 +467,7 @@ str_extract(sotu[[1]], "^(.+)Representatives") # including pattern
 ####                              PREPROCESSING CHOICES                      ####
 # ============================================================================= #
 
-#devtools::install_github("matthewjdenny/preText")
+devtools::install_github("matthewjdenny/preText"))
 
 library(preText)
 
