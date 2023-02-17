@@ -350,7 +350,7 @@ aggregate(TTR$TTR,
 
 textstat_readability(data_corpus_irishbudgets, "Flesch") %>% head()
 
-# for groups of corpus, we can use corpus_groups; but note that this changes number of documents!
+# for groups of corpus, we can use corpus_groups; but note that this changes number of documents! # combine into one document instead of averaging over documents in group
 corpus_y <- corpus_group(data_corpus_irishbudgets, groups = docvars(data_corpus_irishbudgets)$year)
 textstat_readability(corpus_y, "Flesch") 
 
@@ -370,7 +370,9 @@ textstat_readability(corpus_p, measure = "Dale.Chall.old")
 
 # let's compare each measure
 #####################################
-
+#install.packages("tidylog")
+# for more info refer to: https://cran.r-project.org/web/packages/gutenbergr/vignettes/intro.html
+#library(tidylog)
 all_readability_measures <- textstat_readability(data_corpus_irishbudgets, 
                                                  c("Flesch", "Dale.Chall", 
                                                    "SMOG", "Coleman.Liau", 
@@ -423,7 +425,7 @@ ggplot(flesch_point, aes(x = party, y = mean, colour = party)) +
 
 # We will use a loop to bootstrap a sample of documents and subsequently calculate standard errors
 iters <- 10 # usually want to at least use 100
-
+install.packages("pbapply")
 library(pbapply)
 # build function to be used in bootstrapping
 boot_flesch <- function(party_data){
