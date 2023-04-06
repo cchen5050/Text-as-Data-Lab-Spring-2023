@@ -194,6 +194,16 @@ health[1:10]
 # unlike wordscores, it does not require reference texts
 # underlying model: Poisson-IRT model
 
+#y_ij ~ Poisson(lambda_ij)
+# i: individual person, j: term
+# lambda_ij = exp(alpha_i + psi_j + mu_j theta_i)
+# want to get theta, latent ideology for person i or speech i.
+# alpha i for individual fixed effect, use more words
+# psi j, word j, used more often
+# mu j: how much certain words discriminate ideology.
+# under identified
+
+
 # How is it different from other approaches we've used for scaling?
 
 # Read in conservative and labour manifestos (from Recitation 5)
@@ -263,6 +273,7 @@ sort(words, decreasing=T)[1:50]
 
 # Guitar plot
 weights <- manifestos_fish$beta
+# mu j, marginal effect of word
 
 temp <- data.frame(words = names(words), fixedeffect = words, marginaleffect = weights)
 # plot(weights, words)
