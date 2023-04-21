@@ -26,7 +26,7 @@ pacman::p_load(ldatuning,
                parallel,
                doParallel)
 
-
+setwd('C:/Users/chen5/Documents/GitHub/Text-as-Data-Lab-Spring-2023')
 
 # ============================================================================= #
 ####                                GETTING STARTED                          ####
@@ -93,17 +93,17 @@ blm_dfm <- tokens(blm_tweets_sum$text, remove_punct = T, remove_numbers = T, rem
 ?FindTopicsNumber
 
 # Identify an appropriate number of topics (FYI, this function takes a while)
-# k_optimize_blm <- FindTopicsNumber(
-#   blm_dfm,
-#   topics = seq(from = 2, to = 10, by = 2),
-#   metrics = c("Griffiths2004", "CaoJuan2009", "Arun2010", "Deveaud2014"),
-#   method = "Gibbs",
-#   control = list(seed = 1992),
-#   mc.cores = detectCores(), # to us all cores available
-#   verbose = TRUE
-# )
-# 
-# FindTopicsNumber_plot(k_optimize_blm)
+k_optimize_blm <- FindTopicsNumber(
+  blm_dfm,
+  topics = seq(from = 2, to = 10, by = 2),
+  metrics = c("Griffiths2004", "CaoJuan2009", "Arun2010", "Deveaud2014"),
+  method = "Gibbs",
+  control = list(seed = 1992),
+  mc.cores = detectCores(), # to us all cores available
+  verbose = TRUE
+)
+
+FindTopicsNumber_plot(k_optimize_blm)
 
 # Where do these metrics come from? 
 # Go here for the citations (and another tutorial)
@@ -143,13 +143,13 @@ system.time(
 dim(blm_tm@gamma)
 blm_tm@gamma[1:5,1:5]
 rowSums(blm_tm@gamma) # each row sums to?
-colMeans(blm_tm@gamma)
+colMeans(blm_tm@gamma) # prevalence of topic, how common topic
 
 # beta = topic distribution over words
 # logarithmized parameters of the word distribution for each topic
 dim(blm_dfm)  # how many features do we have?
 dim(blm_tm@beta)
-blm_tm@beta[1:5,1:5]
+blm_tm@beta[1:5,1:5] # as log probabilities
 rowSums(exp(blm_tm@beta))
 
 # Per topic per word probabilities matrix (beta)
@@ -193,7 +193,7 @@ blm_topics %>%
   geom_col(show.legend = FALSE) +
   xlab("Terms") + ylab("Log-Ratio") +
   coord_flip()
-
+# distinguish between two topics, most different terms
 
 
 ## Visualizing topic trends over time
