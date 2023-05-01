@@ -16,7 +16,8 @@ pacman::p_load(quanteda,
                lsa, # for latent semantic analysis
                factoextra, # makes it easy to work with PCA (great for visualization)
                text2vec, # for similarity measures
-               quanteda.textmodels
+               quanteda.textmodels,
+               quanteda.textplots
                )
 
 # ============================================================================= #

@@ -35,11 +35,13 @@ data(poliblog5k)
 head(poliblog5k.meta)
 head(poliblog5k.voc)
 head(poliblog5k.docs)
+# looks different, but can apply normal stm package to normal dtm
 
 # Fits an STM model with 3 topics
 ?stm
-blog_stm <- stm(poliblog5k.docs, poliblog5k.voc, 3, 
-                prevalence = ~rating + s(day), 
+
+blog_stm <- stm(poliblog5k.docs, poliblog5k.voc, 3,  # vocab can be column names dfm, or features
+                prevalence = ~rating + s(day), # define formula, influence prevalance covariates. rating - cons/lib. Spline for the day
                 data = poliblog5k.meta)
 
 # A plot that summarizes the topics by what words occur most commonly in them
@@ -164,6 +166,8 @@ word_vectors <- wv_main + t(word_vectors_context) # word vectors
 
 # features?
 head(rownames(word_vectors))
+setwd('C:/Users/chen5/Documents/GitHub/Text-as-Data-Lab-Spring-2023/W10_04_20_23')
+pretrained <- readRDS("glove.rds") # GloVe pretrained (https://nlp.stanford.edu/projects/glove/)
 
 # pretrained GLoVE embeddings
 # download this from Brightspace for your homework
